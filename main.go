@@ -49,9 +49,19 @@ func paddingSpace(s string,n int) string{
 func main(){
 	var(
 		//u=flag.String("u","tourist","user name flag")
-		t=flag.String("t","a","rating type flag")
+		t=flag.String("t","a","rating type")
+		h=flag.Bool("h",false,"help")
 	)
 	flag.Parse()
+
+	if len(flag.Args())==0 && *h{
+		fmt.Println("Usage: ac-profile [options] user_name")
+		fmt.Println("Options:")
+		fmt.Println("  -t  Changes the type of information to be displayed.\n      When \"a\" is specified, the algorithm details is displayed.\n      when \"h\" is specified, the heuristic details are displayed.\n      Default is \"a\".")
+		fmt.Println("  -h  Display help")
+		return
+	}
+
 	if len(flag.Args())==0{
 		fmt.Println("fatal error : no input user name")
 		return
@@ -62,13 +72,17 @@ func main(){
 	}
 	resp,err:=http.Get(webPage)
 	if err!=nil{
-		fmt.Println("failed to get html")
+		fmt.Println("failed to get information")
 		return
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200{
-		fmt.Println("failed to fetch data")
+		if resp.StatusCode==404{
+			fmt.Println("user not found")
+		} else{
+			fmt.Println("failed to fetch data")
+		}
 		return
 	}
 
