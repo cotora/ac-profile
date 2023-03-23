@@ -19,7 +19,7 @@ Highest Rating : 934
 Rated Matches  : 44
 Last Competed  : 2023/03/19
 ```
-オプションとして`-h`フラグをつけて実行すると、ヒューリスティックの情報が表示されます
+オプションとして`-h`フラグをつけて実行すると、ヒューリスティックの情報が表示されます.
 ```shell-session
 # ac-profile -h cotora
 [Heuristic]
