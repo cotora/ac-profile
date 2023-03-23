@@ -1,11 +1,11 @@
 # ac-profile
-ターミナル上でatcoderのプロフィール情報を表示することができます.
+You can view atcoder profile information on the terminal.
 ## Install
 ```bash
 go install github.com/cotora/ac-profile
 ```
 ## Usage
-ユーザー名を引数として実行するとそのユーザーのプロフィール情報が表示されます.
+Running the command with a user name as an argument will display the user's profile information.
 ```shell-session
 # ac-profile cotora
 [Algorithm]
@@ -19,7 +19,7 @@ Highest Rating : 934
 Rated Matches  : 44
 Last Competed  : 2023/03/19
 ```
-オプションとして`-h`フラグをつけて実行すると、ヒューリスティックの情報が表示されます.
+Running with the `-h` flag as an option will display the heuristic information.
 ```shell-session
 # ac-profile -h cotora
 [Heuristic]
