@@ -1,4 +1,4 @@
-module ac-profile
+module github.com/cotora/ac-profile
 
 go 1.20
 

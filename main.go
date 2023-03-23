@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	//"os"
+	"os"
 	"flag"
 	"github.com/PuerkitoBio/goquery"
 	"regexp"
@@ -49,28 +49,23 @@ func paddingSpace(s string, n int) string {
 func main() {
 	var (
 		//u=flag.String("u","tourist","user name flag")
-		t = flag.String("t", "a", "rating type")
-		h = flag.Bool("h", false, "help")
+		h = flag.Bool("h", false, "heuristic flag")
 	)
-	flag.Parse()
-	if len(flag.Args()) == 0 && *h {
-		fmt.Println("Usage: ac-profile [options] user_name")
-		fmt.Println("Options:")
-		fmt.Println("  -t  Changes the type of information to be displayed.\n      When \"a\" is specified, the algorithm details are displayed.\n      when \"h\" is specified, the heuristic details are displayed.\n      Default is \"a\".")
-		fmt.Println("  -h  Display help")
-		return
+
+	flag.Usage=func() {
+		fmt.Fprintf(os.Stderr,"Usage: ac-profile [options] user_name\n")
+		flag.PrintDefaults()
 	}
+
+	flag.Parse()
 
 	if len(flag.Args()) == 0 {
 		fmt.Println("fatal error : no input user name")
 		return
 	}
 	webPage := "https://atcoder.jp/users/" + flag.Arg(0)
-	if *t == "h" {
+	if *h {
 		webPage += "?contestType=heuristic"
-	} else if *t != "a" {
-		fmt.Println("no type setting")
-		return
 	}
 	resp, err := http.Get(webPage)
 	if err != nil {
@@ -118,6 +113,8 @@ func main() {
 		}
 	*/
 	maxLen := 0
+
+	//get profile information
 	doc.Find("div .dl-table tr").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("th").Text()
 		title=strings.TrimSpace(title)
@@ -157,7 +154,7 @@ func main() {
 			maxLen=max(maxLen,utf8.RuneCountInString(title))
 		}
 	})
-	if *t == "a" {
+	if !*h {
 		fmt.Println("[Algorithm]")
 	} else {
 		fmt.Println("[Heuristic]")
