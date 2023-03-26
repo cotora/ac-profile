@@ -60,7 +60,7 @@ func main() {
 	flag.Parse()
 
 	if len(flag.Args()) == 0 {
-		fmt.Println("fatal error : no input user name")
+		fmt.Println("[Error] : no input user name")
 		return
 	}
 	webPage := "https://atcoder.jp/users/" + flag.Arg(0)
@@ -69,16 +69,16 @@ func main() {
 	}
 	resp, err := http.Get(webPage)
 	if err != nil {
-		fmt.Println("failed to get information")
+		fmt.Println("[Error] : failed to get information")
 		return
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
 		if resp.StatusCode == 404 {
-			fmt.Println("user not found")
+			fmt.Println("[Error] : user not found")
 		} else {
-			fmt.Println("failed to fetch data")
+			fmt.Println("[Error] : failed to fetch data")
 		}
 		return
 	}
