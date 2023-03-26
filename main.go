@@ -49,7 +49,7 @@ func paddingSpace(s string, n int) string {
 func main() {
 	var (
 		//u=flag.String("u","tourist","user name flag")
-		h = flag.Bool("h", false, "heuristic flag")
+		h = flag.Bool("h", false, "information about heuristic is displayed")
 	)
 
 	flag.Usage=func() {
